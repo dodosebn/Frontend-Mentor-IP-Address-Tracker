@@ -1,0 +1,152 @@
+@import url("https://fonts.google.com/specimen/Rubik");
+:root {
+  --VeryDarkGray: hsl(0, 0%, 17%);
+  --DarkGray: hsl(0, 0%, 59%);
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Rubik", sans-serif;
+  background-image: url("./images/pattern-bg-desktop.png");
+  background-repeat: no-repeat;
+  overflow-x: hidden;
+  /* background-color: black; */
+}
+.title-Cont {
+  padding: 2em;
+  color: #fff;
+  font-size: 1.4em;
+  text-shadow: 2px 2px 2px #5a77df;
+}
+.input-cont,
+.title-Cont,
+.input-hold, .event-chief {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+input[type="text"] {
+  width: 26em;
+  color: var(--VeryDarkGray);
+  padding: 13.8px;
+  font-size: 18px;
+  border: 1px solid #fff;
+  border-radius: 15px 0px 0px 15px;
+  outline: none;
+  text-indent: 0.7em;
+}
+#clickSer{/* search icon */
+    width: 1em;
+    height: 1em;
+}
+.click-hold{
+    background-color: var(--VeryDarkGray);
+    padding: 1em;
+    border-radius: 0px 15px 15px 0px;
+}
+.event-chief{
+    padding-top: 3em;
+}
+.event-cont{
+    background-color: #fff;
+    padding: 2em;
+    width: 65em;
+    border-radius: 10px;
+}
+
+.event-cont,.event-hold {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.event-hold p{
+    color: var(--DarkGray);
+    font-size: 14px;
+    font-weight: 700;
+
+}
+.event-hold h1{
+color: var(--VeryDarkGray);
+margin-right: 1.5em;
+margin-top: 7px;
+    width: 7em;
+}
+.divider1,.divider2, .divider3{
+    border-left: 1px solid var(--DarkGray);
+    height: 4em;
+    margin-left: 1.5em;
+}
+.isp, .timezone, .location{ 
+    padding-left: 2em;
+    line-height: 1.6em;
+}
+.ipadd,.timezone{
+margin-bottom: 1.8em;
+}
+#map {
+    position: absolute;
+ top:23em;
+    height: 65vh;
+    width: 100vw;
+    z-index: -1; 
+   }
+@media (max-width: 430px){
+    body{
+        background-image: url("./images/pattern-bg-mobile.png");
+        background-repeat: repeat-x;
+    }
+    body {
+        padding: 0;
+        margin: 0;
+    }
+    html, body, #map {
+        height: 100%;
+        width: 100vw;
+    }
+    .title-Cont {
+        font-size: 1em;
+        text-shadow: 0.5px 0.5px 0.5px #5a77df;
+      }
+      input[type="text"] {
+        width: 16em;
+        text-indent: 0.4em;
+      }
+      .event-chief{
+        padding-top: 1.5em;
+        text-align: center;
+    }
+    .event-cont{
+        padding: 1em;
+        width: 21em;
+        position: relative;
+    }
+    .event-cont,.event-hold {
+        display: block;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+    .event-hold h1{
+        margin-right: 0em;
+        /* margin-top: 7px; */
+            width: 10em;
+        }
+        .ipadd h1, .timezone h1{
+            padding-left: 2em;
+        }
+    .divider1,.divider2, .divider3{
+        display: none;
+    }
+   .ipadd, .timezone{
+    padding-top: 1em;
+   }
+   .location, .isp, .timezone{
+  position: relative;
+  bottom: 1em;
+   }
+   .isp{
+    bottom: 2em;
+   }
+}
