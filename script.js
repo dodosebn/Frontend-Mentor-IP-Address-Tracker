@@ -1,50 +1,19 @@
 const searchInput = document.getElementById("search-input");
-const clickSearch = document.querySelector(".click-hold");
 const ipValue = document.getElementById("IpVal");
 const locValue = document.getElementById("LocVal");
 const timValue = document.getElementById("TimVal");
 const ispValue = document.getElementById("IspVal");
+const clickSearch = document.querySelector(".click-hold");
 
-if (window.matchMedia("(max-width: 410px)").matches) {
-  var metaTag = document.createElement("meta");
-  metaTag.setAttribute("name", "viewport");
-  metaTag.setAttribute(
-    "content",
-    "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-  );
-  document.head.appendChild(metaTag);
-
-  var map = L.map("map").fitWorld();
-  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    maxZoom: 19,
-    attribution: "© OpenStreetMap",
-  }).addTo(map);
-  map.locate({ setView: true, maxZoom: 16 });
-  function onLocationFound(e) {
-    var radius = e.accuracy;
-
-    L.marker(e.latlng)
-      .addTo(map)
-      .bindPopup("You are within " + radius + " meters from this point")
-      .openPopup();
-
-    L.circle(e.latlng, radius).addTo(map);
-  }
-
-  map.on("locationfound", onLocationFound);
-  function onLocationError(e) {
-    alert(e.message);
-}
-
-map.on('locationerror', onLocationError);
-}
-
-var map = L.map("map").setView([51.505, -0.09], 18);
-L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}", {
-  foo: "bar",
+var map = L.map("map");
+map.setView([0, 0], 13);
+L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  maxZoom: 19,
   attribution:
-    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
 }).addTo(map);
+
+let marker, circle, zoomed;
 
 function Louder() {
   const userInput = searchInput.value;
@@ -52,17 +21,62 @@ function Louder() {
     `https://geo.ipify.org/api/v2/country,city?apiKey=at_XC2siWMYDUs9WcHkfAYy76uGcXoWK&ipAddress=${userInput}`
   );
   request
-    .then((reponse) => reponse.json())
+    .then((response) => response.json())
     .then(function (data) {
       ipValue.textContent = `${data.ip}`;
       locValue.textContent = `${data.location.city}, ${data.location.country}`;
       timValue.textContent = `${data.location.timezone}`;
       ispValue.textContent = `${data.isp}`;
+
+      const lat = data.location.lat;
+      const lng = data.location.lng;
+
+      if (marker) {
+        map.removeLayer(marker);
+        map.removeLayer(circle);
+      }
+
+      marker = L.marker([lat, lng]).addTo(map);
+      circle = L.circle([lat, lng], { radius: 1000 }).addTo(map);
+
+      map.setView([lat, lng], 13);
+    })
+    .catch(function (error) {
+      console.log(error);
     });
-  console.log(data);
 }
+
+function success(position) {
+  const lat = position.coords.latitude;
+  const lng = position.coords.longitude;
+  const accuracy = position.coords.accuracy;
+
+  if (marker) {
+    map.removeLayer(marker);
+    map.removeLayer(circle);
+  }
+
+  marker = L.marker([lat, lng]).addTo(map);
+  circle = L.circle([lat, lng], { radius: accuracy }).addTo(map);
+
+  if (!zoomed) {
+    zoomed = map.fitBounds(circle.getBounds());
+  }
+
+  map.setView([lat, lng]);
+}
+
+function error(err) {
+  if (err.code === 1) {
+    alert("Please allow geolocation access.");
+  } else {
+    alert("Cannot get current location.");
+  }
+}
+navigator.geolocation.watchPosition(success, error);
 clickSearch.addEventListener("click", (event) => {
   event.preventDefault();
   Louder();
 });
-Louder();
+
+

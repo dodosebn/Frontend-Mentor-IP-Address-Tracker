@@ -47,16 +47,13 @@ input[type="text"] {
     padding: 1em;
     border-radius: 0px 15px 15px 0px;
 }
-.event-chief{
-    padding-top: 3em;
-}
+.event-chief{padding-top: 3em;}
 .event-cont{
     background-color: #fff;
     padding: 2em;
     width: 65em;
     border-radius: 10px;
 }
-
 .event-cont,.event-hold {
     display: flex;
     justify-content: space-around;
@@ -66,7 +63,6 @@ input[type="text"] {
     color: var(--DarkGray);
     font-size: 14px;
     font-weight: 700;
-
 }
 .event-hold h1{
 color: var(--VeryDarkGray);
@@ -83,22 +79,21 @@ margin-top: 7px;
     padding-left: 2em;
     line-height: 1.6em;
 }
-.ipadd,.timezone{
-margin-bottom: 1.8em;
-}
-#map {
-    position: absolute;
- top:23em;
+.ipadd,.timezone{margin-bottom: 1.8em;}
+   #map{
     height: 65vh;
     width: 100vw;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 23em;
     z-index: -1; 
    }
 @media (max-width: 430px){
     body{
         background-image: url("./images/pattern-bg-mobile.png");
         background-repeat: repeat-x;
-    }
-    body {
         padding: 0;
         margin: 0;
     }
@@ -130,23 +125,14 @@ margin-bottom: 1.8em;
     }
     .event-hold h1{
         margin-right: 0em;
-        /* margin-top: 7px; */
             width: 10em;
         }
-        .ipadd h1, .timezone h1{
-            padding-left: 2em;
-        }
-    .divider1,.divider2, .divider3{
-        display: none;
-    }
-   .ipadd, .timezone{
-    padding-top: 1em;
-   }
+        .ipadd h1, .timezone h1{ padding-left: 2em; }
+    .divider1,.divider2, .divider3{  display: none;  }
+   .ipadd, .timezone{ padding-top: 1em;}
    .location, .isp, .timezone{
   position: relative;
   bottom: 1em;
    }
-   .isp{
-    bottom: 2em;
-   }
+   .isp{ bottom: 2em;}
 }
